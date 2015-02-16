@@ -72,7 +72,8 @@ def main():
             new_content = check(filename, data_dir=args.data_dir)
             if new_content:
                 subject, text = generate_email_text(filename)
-                send_email(args, subject, text, new_content)
+                with smtp_connect(args) as conn:
+                    send_email(conn, args, subject, text, new_content)
 
         time.sleep(args.poll_frequency)
 
@@ -138,7 +139,7 @@ def generate_email_text(filename):
     )
 
 
-def send_email(args, subject, text, changes):
+def send_email(conn, args, subject, text, changes):
     """
     Send the file.
 
@@ -158,8 +159,7 @@ def send_email(args, subject, text, changes):
 
     msg.attach(MIMEText(text))
 
-    with smtp_connect(args) as conn:
-        conn.sendmail(args.sender, args.recipient, msg.as_string())
+    conn.sendmail(args.sender, args.recipient, msg.as_string())
 
 
 @contextmanager

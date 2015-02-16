@@ -1,6 +1,7 @@
 import os
 from collections import namedtuple
 from base64 import urlsafe_b64encode as b64encode
+from mock import MagicMock
 
 from babycam import check, generate_email_text, send_email
 
@@ -76,19 +77,18 @@ def test_send_email():
 
     """
     args = namedtuple('Arguments', [
-        'sender', 'recipient', 'user', 'password', 'ssl', 'tls', 'host',
-        'port',
+        'sender', 'recipient',
     ])(
         'sender@example.com',
         'test@example.com',
-        '29958a97d6cf2a800',
-        'db61946a6311c3',
-        False,
-        True,
-        'mailtrap.io',
-        465,
     )
+    conn = MagicMock()
+    conn.sendmail = MagicMock()
 
     fn, _ = _generate_filenames()
     subject, text = generate_email_text(fn)
-    send_email(args, subject, text, 'Changes in file.')
+    send_email(conn, args, subject, text, 'Changes in file.')
+    assert conn.sendmail.call_count == 1
+    args, kwargs = conn.sendmail.call_args
+    assert args[0] == 'sender@example.com'
+    assert args[1] == 'test@example.com'
