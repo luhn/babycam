@@ -2,7 +2,6 @@ import argparse
 import time
 import os.path
 import smtplib
-import textwrap
 import socket
 import getpass
 from datetime import datetime as DateTime
