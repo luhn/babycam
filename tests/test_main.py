@@ -12,8 +12,8 @@ def _generate_filenames():
     """
     name = b64encode(os.urandom(12)).decode('ascii')
     return (
-        '/tmp/{}.test'.format(name),
-        '/tmp/.{}.test.babycam'.format(name),
+        '/tmp/{0}.test'.format(name),
+        '/tmp/.{0}.test.babycam'.format(name),
     )
 
 
@@ -63,9 +63,9 @@ def test_check():
 def test_generate_email_text():
     fn, _ = _generate_filenames()
     subject, text = generate_email_text(fn)
-    assert subject == 'File changed: {}'.format(fn)
+    assert subject == 'File changed: {0}'.format(fn)
     lines = text.split('\n')
-    assert lines[0] == 'The file {} has changed!'.format(fn)
+    assert lines[0] == 'The file {0} has changed!'.format(fn)
     assert lines[2].startswith('Timestamp: ')
 
 

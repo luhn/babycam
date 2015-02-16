@@ -12,7 +12,7 @@ from contextlib import contextmanager
 
 
 def main():
-    default_sender = '{}@{}'.format(
+    default_sender = '{0}@{1}'.format(
         getpass.getuser(),
         socket.getfqdn(),
     )
@@ -89,7 +89,7 @@ def check(filename, data_dir=None):
 
     data_file = os.path.join(
         data_dir,
-        '.{}.babycam'.format(tail.lstrip('.')),
+        '.{0}.babycam'.format(tail.lstrip('.')),
     )
 
     # Get the length of the file.
@@ -129,10 +129,10 @@ def generate_email_text(filename):
     """
     absolute = os.path.abspath(filename)
     return (
-        'File changed: {}'.format(absolute),
+        'File changed: {0}'.format(absolute),
         (
-            'The file {} has changed!\n\n'.format(absolute) +
-            'Timestamp:  {}\n\n'.format(DateTime.now().isoformat()) +
+            'The file {0} has changed!\n\n'.format(absolute) +
+            'Timestamp:  {0}\n\n'.format(DateTime.now().isoformat()) +
             'See attached file for details.'
         ),
     )
