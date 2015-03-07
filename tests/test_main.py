@@ -68,6 +68,7 @@ def test_generate_email_text():
     lines = text.split('\n')
     assert lines[0] == 'The file {0} has changed!'.format(fn)
     assert lines[2].startswith('Timestamp: ')
+    assert lines[3].startswith('Hostname: ')
 
 
 def test_send_email():

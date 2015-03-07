@@ -128,11 +128,13 @@ def generate_email_text(filename):
 
     """
     absolute = os.path.abspath(filename)
+    hostname = socket.getfqdn()
     return (
         'File changed: {0}'.format(absolute),
         (
             'The file {0} has changed!\n\n'.format(absolute) +
-            'Timestamp:  {0}\n\n'.format(DateTime.now().isoformat()) +
+            'Timestamp:  {0}\n'.format(DateTime.now().isoformat()) +
+            'Hostname:  {0}\n\n'.format(hostname) +
             'See attached file for details.'
         ),
     )
