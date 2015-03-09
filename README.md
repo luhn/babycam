@@ -12,7 +12,7 @@ and 3.4.
 babycam is not yet on PyPI, so install with:
 
 ```bash
-pip install https://github.com/luhn/babycam/archive/v1.0.0.tar.gz
+pip install https://github.com/luhn/babycam/archive/v1.0.1.tar.gz
 ```
 
 ## Usage
